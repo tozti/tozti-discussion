@@ -1,7 +1,7 @@
 # tozti-discussion
 *A tozti extension providing discussion threads.*
 
-## Using the extension.
+## Installing the extension.
 
 To use the extension in your tozti installation, either:
 - Download one of the releases, and unzip it into your `extensions/` folder.
