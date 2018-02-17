@@ -11,7 +11,7 @@
       <p>
         <strong> {{ Message_name }} </strong>, {{ Message_date }}
         <br>
-          {{ Message_text }}
+          <p style="white-space: pre-line;">{{ Message_text }}</p>
         <br>
         <small><a>Marquer comme important</a> · <a>Répondre</a> · <a>Créer un fil à partir de commentaire</a> </small>
       </p> <br />

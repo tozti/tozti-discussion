@@ -35,34 +35,25 @@
 
 <template v-if="affRep">
 
-   <answer-bla Answer_name="Manu" Answer_text=" Non mais vous êtes dingues la saint Valentine c'est pas le même jour que la saint Valentin c'est une hérésie sans nom!" Answer_date="samedi 03/02/2018 à 18:49" Answer_image="https://bulma.io/images/placeholders/128x128.png" />
+   <answer-bla Answer_name="Manu" Answer_text=" Non mais vous êtes dingues la saint Valentine c'est pas le même jour que la saint Valentin c'est une hérésie sans nom!" Answer_date="samedi 03/02/2018 à 19:14" Answer_image="https://bulma.io/images/placeholders/128x128.png" />
 
    <answer-bla Answer_name="lucas" Answer_text="j'appelle la police @anoiret" Answer_date="samedi 03/02/2018 à 18:50" Answer_image="https://bulma.io/images/placeholders/128x128.png" />
 
 </template>
-<p> </p> <br />
 
 <message-bla Message_name="Fenril" Message_text="Répondez ici pour les idées de décoration" Message_date="samedi 03/02/2018 à 18:46" Message_image="https://bulma.io/images/placeholders/128x128.png" />
 
-<article class="media">
-  <div class="media-content">
-    <div class="content">
-      <p>
-        <small> Emmanuel Rodriguez a répondu à un <a>message de {{name}}</a>, samedi 03/02/2018 à 19:14 </small>
-      </p>
-      <p>
-	<small> Lucas Perotin a répondu à un <a>message de {{name}}</a>, samedi 03/02/2018 à 19:16 </small>
-      </p>
-    </div>
-   </div>
-  </article>
+<notif-bla Notif_name1="Manu" Notif_name2="Fenril" Notif_date="samedi 03/02/2018 à 19:14" Notif_idMessage="none" />
 
-<text-bla textfield_name="bobby" />
+<notif-bla Notif_name1="Lucas" Notif_name2="Fenril" Notif_date="samedi 03/02/2018 à 19:16" Notif_idMessage="none" />
 
-<div id="app-5">
-  <p>{{ message }}</p>
-  <button v-on:click="reverseMessage">Reverse Message</button>
-</div>
+<template v-if="nM">
+
+   <message-bla Message_name="bobby" v-bind:Message_text="textField_newmessage" Message_date="samedi 03/02/2018 à 19:14" Message_image="https://bulma.io/images/placeholders/128x128.png" />
+
+</template>
+
+<text-bla textfield_name="bobby" @message-updated="updateMessage" @message-posted="postMessage" />
 
 </div>
 
@@ -73,6 +64,7 @@
 import TextField from './TextField.vue'
 import Message from './Message.vue'
 import Answer from './Answer.vue'
+import Notif from './notif_message.vue'
 
 export default {
     data () {
@@ -80,20 +72,20 @@ export default {
 	    title: 'Soirée Saint Valentin.e',
             name: 'Fenril Montorier',
 	    message: 'Hello',
-	    affRep: false
+	    affRep: false,
+	    textField_newmessage: "",
+	    nM: false
         }
     },
 
     components: {
         'text-bla': TextField,
     	'message-bla': Message,
-	'answer-bla': Answer
+	'answer-bla': Answer,
+	'notif-bla': Notif
     },
 
   methods: {
-    reverseMessage() {
-      this.message = this.message.split('').reverse().join('')
-    },
     afficherReponse() {
        if (this.affRep===true){
           this.affRep = false
@@ -101,6 +93,12 @@ export default {
        else {
           this.affRep = true
        }
+    },
+    updateMessage(textField_newmessage) {
+      this.textField_newmessage = textField_newmessage;
+    },
+    postMessage(nM) {
+       this.nM=nM;
     }
   }
 };

@@ -12,7 +12,7 @@
       <p>
         <strong> {{ Answer_name }} </strong>, {{ Answer_date }}
         <br>
-          {{ Answer_text }}
+          <p style="white-space: pre-line;">{{ Answer_text }}</p>
         <br>
         <small><a>Marquer comme important</a> · <a>Répondre</a> · <a>Créer un fil à partir de commentaire</a> </small>
       </p> <br />

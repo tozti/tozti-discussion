@@ -15,8 +15,7 @@
     
     <div class="field">
       <p class="control">
-        <textarea class="textarea" placeholder="Add a comment...">
-	</textarea>
+        <textarea rows="4" cols="50" v-model="val" placeholder="ajoutez plusieurs lignes"></textarea>
       </p>
     </div>
     <div class="file has-name">
@@ -36,7 +35,7 @@
     </div>
     <div class="field">
       <p class="control">
-        <button class="button">Poster un commentaire</button>
+        <button class="button" v-on:click="posterMessage()">Poster un commentaire</button>
       </p>
     </div>
   </div>
@@ -45,7 +44,33 @@
 </template>
 
 <script>
-export default {
-    props: ['textfield']
+
+export default{
+  props: ['textfield_name', 'textfield_newmessage'],
+  created() {
+    this.val = this.textfield_newmessage,
+    this.nM=false
+  },
+  data() {
+    return {
+      val: '',
+      nM:false
+    }
+  },
+  watch: {
+    val() {
+      this.$emit('message-updated', this.val);
+    },
+    nM() {
+      this.$emit('message-posted', this.nM);
+    }
+  },
+   methods: {
+    posterMessage() {
+       this.nM=true
+    },
+    
+  }
 }
+
 </script>
