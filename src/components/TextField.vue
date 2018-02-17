@@ -1,0 +1,51 @@
+<template>
+
+<article class="media">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img src="https://bulma.io/images/placeholders/128x128.png">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+	<strong> {{ textfield_name }} </strong>
+      </p>
+    </div>
+    
+    <div class="field">
+      <p class="control">
+        <textarea class="textarea" placeholder="Add a comment...">
+	</textarea>
+      </p>
+    </div>
+    <div class="file has-name">
+      <label class="file-label">
+	<input class="file-input" type="file" name="resume">
+	<span class="file-cta">
+	  <span class="file-icon">
+            <i class="fas fa-upload"></i>
+	  </span>
+	  <span class="file-label">
+            Choose a file…
+	  </span>
+	</span>
+	<span class="file-name">
+	</span>
+      </label>
+    </div>
+    <div class="field">
+      <p class="control">
+        <button class="button">Poster un commentaire</button>
+      </p>
+    </div>
+  </div>
+</article>
+
+</template>
+
+<script>
+export default {
+    props: ['textfield']
+}
+</script>
