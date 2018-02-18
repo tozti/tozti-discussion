@@ -13,7 +13,7 @@
         <br>
           <p style="white-space: pre-line;">{{ Message_text }}</p>
         <br>
-        <small><a>Marquer comme important</a> · <a>Répondre</a> · <a>Créer un fil à partir de commentaire</a> </small>
+        <small><a>Marquer comme important</a> · <button class="button is-text" v-on:click="afficherReponse()"> <a> répondre </a> </button> · <a>Créer un fil à partir de commentaire</a> </small>
       </p> <br />
     </div>
    </div>
@@ -24,13 +24,15 @@
 
 <button class="button is-text" v-on:click="afficherReponse()"> {{Message_nbAnswers}} réponses</button>
 
+</template>
+
 <template v-if="affRep">
 
 <div v-for="answer in Message_answers">
    <answer-bla v-bind:Answer_name="answer.name" v-bind:Answer_text="answer.text" v-bind:Answer_date="answer.date" />
 </div>
 
-</template>
+<anstext-bla anstextfield_name="bobby" @message-updated="updateMessage" @message-posted="postMessage" />
 
 </template>
 
@@ -40,6 +42,7 @@
 <script>
 
 import Answer from './Answer.vue'
+import Answer_textfield from './Answer_textfield.vue'
 
 export default {
     props: ['Message_name','Message_date','Message_text','Message_answers','Message_nbAnswers'],
@@ -51,15 +54,28 @@ export default {
         else{
            this.affRep = true
         }
+      },
+      updateMessage(textField_newmessage) {
+        this.textField_newmessage = textField_newmessage;
+      },
+      postMessage(nM) {
+        this.nM=nM;
+        if (this.nM===true)
+        {
+           this.Message_answers.push({name:"Bobby", text:this.textField_newmessage, date:"A l'instant"});
+        }
       }
     },
     data() {
     	return {
-	    affRep :false
+	    affRep :false,
+	    nM: false,
+	    textField_newmessage: ""
 	}
     },
     components: {
-	'answer-bla': Answer
+	'answer-bla': Answer,
+	'anstext-bla': Answer_textfield
     },
 }
 </script>

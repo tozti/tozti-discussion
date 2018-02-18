@@ -94,6 +94,10 @@ export default {
     },
     postMessage(nM) {
        this.nM=nM;
+       if (this.nM===true)
+       {
+           this.messages.push({name:"Bobby", text:this.textField_newmessage, date:"A l'instant", answers:[], nbAnswers:0});
+       }
     }
   }
 };

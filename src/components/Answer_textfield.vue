@@ -1,5 +1,7 @@
 <template>
 
+<div style="text-align: left;padding-left: 60px">
+
 <article class="media">
   <figure class="media-left">
     <p class="image is-64x64">
@@ -9,7 +11,7 @@
   <div class="media-content">
     <div class="content">
       <p>
-	<strong> {{ textfield_name }} </strong>
+	<strong> {{ anstextfield_name }} </strong>
       </p>
     </div>
     
@@ -41,14 +43,16 @@
   </div>
 </article>
 
+</div>
+
 </template>
 
 <script>
 
 export default{
-  props: ['textfield_name', 'textfield_newmessage'],
+  props: ['anstextfield_name', 'anstextfield_newmessage'],
   created() {
-    this.val = this.textfield_newmessage,
+    this.val = this.anstextfield_newmessage,
     this.nM=false
   },
   data() {
