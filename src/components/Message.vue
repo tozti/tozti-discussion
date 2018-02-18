@@ -1,5 +1,5 @@
 <template>
-
+<div>
 <article class="media">
   <figure class="media-left">
     <p class="image is-64x64">
@@ -17,12 +17,49 @@
       </p> <br />
     </div>
    </div>
+   
 </article>
+
+<template v-if="Message_nbAnswers>0">
+
+<button class="button is-text" v-on:click="afficherReponse()"> {{Message_nbAnswers}} réponses</button>
+
+<template v-if="affRep">
+
+<div v-for="answer in Message_answers">
+   <answer-bla v-bind:Answer_name="answer.name" v-bind:Answer_text="answer.text" v-bind:Answer_date="answer.date" />
+</div>
 
 </template>
 
+</template>
+
+</div>
+</template>
+
 <script>
+
+import Answer from './Answer.vue'
+
 export default {
-    props: ['Message_name','Message_date','Message_text','Message_image']
+    props: ['Message_name','Message_date','Message_text','Message_answers','Message_nbAnswers'],
+    methods: {
+      afficherReponse() {
+        if (this.affRep===true){
+           this.affRep = false
+        }
+        else{
+           this.affRep = true
+        }
+      }
+    },
+    data() {
+    	return {
+	    affRep :false
+	}
+    },
+    components: {
+	'answer-bla': Answer
+    },
 }
 </script>

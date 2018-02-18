@@ -29,19 +29,9 @@
   </div>
 </nav>
 
-<message-bla Message_name="Fenril" Message_text="Salut il faut organiser la soirée Saint Valentin·e" Message_date="samedi 03/02/2018 à 18:46" Message_image="https://bulma.io/images/placeholders/128x128.png" />
-
-<button class="button is-text" v-on:click="afficherReponse()">2 réponses</button>
-
-<template v-if="affRep">
-
-   <answer-bla Answer_name="Manu" Answer_text=" Non mais vous êtes dingues la saint Valentine c'est pas le même jour que la saint Valentin c'est une hérésie sans nom!" Answer_date="samedi 03/02/2018 à 19:14" Answer_image="https://bulma.io/images/placeholders/128x128.png" />
-
-   <answer-bla Answer_name="lucas" Answer_text="j'appelle la police @anoiret" Answer_date="samedi 03/02/2018 à 18:50" Answer_image="https://bulma.io/images/placeholders/128x128.png" />
-
-</template>
-
-<message-bla Message_name="Fenril" Message_text="Répondez ici pour les idées de décoration" Message_date="samedi 03/02/2018 à 18:46" Message_image="https://bulma.io/images/placeholders/128x128.png" />
+<div v-for="message in messages">
+  <message-bla v-bind:Message_name="message.name" v-bind:Message_text="message.text" v-bind:Message_date="message.date"  v-bind:Message_answers="message.answers"  v-bind:Message_nbAnswers="message.nbAnswers" />
+</div>
 
 <notif-bla Notif_name1="Manu" Notif_name2="Fenril" Notif_date="samedi 03/02/2018 à 19:14" Notif_idMessage="none" />
 
@@ -49,7 +39,7 @@
 
 <template v-if="nM">
 
-   <message-bla Message_name="bobby" v-bind:Message_text="textField_newmessage" Message_date="samedi 03/02/2018 à 19:14" Message_image="https://bulma.io/images/placeholders/128x128.png" />
+   <message-bla Message_name="bobby" v-bind:Message_text="textField_newmessage" Message_date="samedi 03/02/2018 à 19:14" />
 
 </template>
 
@@ -57,21 +47,27 @@
 
 </div>
 
-
 </template>
 
 <script>
 import TextField from './TextField.vue'
 import Message from './Message.vue'
-import Answer from './Answer.vue'
 import Notif from './notif_message.vue'
 
 export default {
     data () {
         return {
 	    title: 'Soirée Saint Valentin.e',
-            name: 'Fenril Montorier',
-	    message: 'Hello',
+            author: 'Fenril Montorier',
+	    messages: [
+                { name:'Fenril', text:"Salut il faut organiser la soirée Saint Valentin·e", date:"samedi 03/02/2018 à 18:45",
+		         answers:[
+				{ name:'Manu', text:"Non mais vous êtes dingues la saint Valentine c'est pas le même jour que la saint Valentin c'est une hérésie sans nom!", date:"samedi 03/02/2018 à 19:14"},
+				{ name:'Lucas',text:"j'appelle la police @anoiret", date:"samedi 03/02/2018 à 19:16"}
+			 ], nbAnswers:2
+		},
+		{ name:'Fenril', text:"Répondez ici pour les idées de décoration", date:"samedi 03/02/2018 à 18:46", answers:[], nbAnswers:0 },
+	    ],
 	    affRep: false,
 	    textField_newmessage: "",
 	    nM: false
@@ -102,8 +98,6 @@ export default {
     }
   }
 };
-
-
 
 </script>
 

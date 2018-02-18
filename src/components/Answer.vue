@@ -25,6 +25,6 @@
 
 <script>
 export default {
-    props: ['Answer_name','Answer_date','Answer_text','Answer_image']
+    props: ['Answer_name','Answer_text','Answer_date']
 }
 </script>
