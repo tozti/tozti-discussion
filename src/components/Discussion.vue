@@ -77,7 +77,6 @@ export default {
     components: {
         'text-bla': TextField,
     	'message-bla': Message,
-	'answer-bla': Answer,
 	'notif-bla': Notif
     },
 
