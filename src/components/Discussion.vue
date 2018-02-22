@@ -30,18 +30,8 @@
 </nav>
 
 <div v-for="message in messages">
-  <message-bla v-bind:Message_name="message.name" v-bind:Message_text="message.text" v-bind:Message_date="message.date"  v-bind:Message_answers="message.answers"  v-bind:Message_nbAnswers="message.nbAnswers" />
+  <message-bla v-bind:message="message" />
 </div>
-
-<notif-bla Notif_name1="Manu" Notif_name2="Fenril" Notif_date="samedi 03/02/2018 à 19:14" Notif_idMessage="none" />
-
-<notif-bla Notif_name1="Lucas" Notif_name2="Fenril" Notif_date="samedi 03/02/2018 à 19:16" Notif_idMessage="none" />
-
-<template v-if="nM">
-
-   <message-bla Message_name="bobby" v-bind:Message_text="textField_newmessage" Message_date="samedi 03/02/2018 à 19:14" />
-
-</template>
 
 <text-bla textfield_name="bobby" @message-updated="updateMessage" @message-posted="postMessage" />
 
@@ -60,13 +50,15 @@ export default {
 	    title: 'Soirée Saint Valentin.e',
             author: 'Fenril Montorier',
 	    messages: [
-                { name:'Fenril', text:"Salut il faut organiser la soirée Saint Valentin·e", date:"samedi 03/02/2018 à 18:45",
+                {typ:1, name:'Fenril', text:"Salut il faut organiser la soirée Saint Valentin·e", date:"samedi 03/02/2018 à 18:45",
 		         answers:[
 				{ name:'Manu', text:"Non mais vous êtes dingues la saint Valentine c'est pas le même jour que la saint Valentin c'est une hérésie sans nom!", date:"samedi 03/02/2018 à 19:14"},
 				{ name:'Lucas',text:"j'appelle la police @anoiret", date:"samedi 03/02/2018 à 19:16"}
-			 ], nbAnswers:2
+			 ], nbAnswers:2, name2:"none"
 		},
-		{ name:'Fenril', text:"Répondez ici pour les idées de décoration", date:"samedi 03/02/2018 à 18:46", answers:[], nbAnswers:0 },
+		{typ:1, name:"Fenril", text:"Répondez ici pour les idées de décoration", date:"samedi 03/02/2018 à 18:46", answers:[], nbAnswers:0, name2:"none"},
+		{typ:0, name:"Manu", text:"none", date:"samedi 03/02/2018 à 19:14", answers:[], nbAnswers:0, name2:"Fenril"},
+		{typ:0, name:"Lucas", text:"none", date:"samedi 03/02/2018 à 19:16", answers:[], nbAnswers:0, name2:"Fenril"}
 	    ],
 	    affRep: false,
 	    textField_newmessage: "",
@@ -96,7 +88,7 @@ export default {
        this.nM=nM;
        if (this.nM===true)
        {
-           this.messages.push({name:"Bobby", text:this.textField_newmessage, date:"A l'instant", answers:[], nbAnswers:0});
+           this.messages.push({typ:1, name:"Bobby", text:this.textField_newmessage, date:"A l'instant", answers:[], nbAnswers:0, name2:"none"});
        }
     }
   }
