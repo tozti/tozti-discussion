@@ -30,7 +30,7 @@
 </nav>
 
 <div v-for="message in messages">
-  <message-bla v-bind:message="message" />
+  <message-bla v-bind:message="message" @notif-updated="updateNotif" @answer-posted="postNotif" />
 </div>
 
 <text-bla textfield_name="bobby" @message-updated="updateMessage" @message-posted="postMessage" />
@@ -62,7 +62,9 @@ export default {
 	    ],
 	    affRep: false,
 	    textField_newmessage: "",
-	    nM: false
+	    nM: false,
+	    nMA: false,
+	    answerNotif: {name:"", date:"", name2:""}
         }
     },
 
@@ -90,7 +92,18 @@ export default {
        {
            this.messages.push({typ:1, name:"Bobby", text:this.textField_newmessage, date:"A l'instant", answers:[], nbAnswers:0, name2:"none"});
        }
-    }
+    },
+    updateNotif(answerNotif)
+    {
+	this.answerNotif = answerNotif ;
+    },
+    postNotif(nMA) {
+       this.nMA=nMA;
+       if (this.nMA===true)
+       {
+           this.messages.push({typ:0, name:this.answerNotif.name, text:"none", date:"A l'instant", answers:[], nbAnswers:0, name2:this.answerNotif.name2});
+       }
+    },
   }
 };
 

@@ -65,6 +65,9 @@ export default {
         if (this.nM===true)
         {
            this.message.answers.push({name:"Bobby", text:this.textField_newmessage, date:"A l'instant"});
+	   this.answerNotif={name:"Bobby",date:"A l'instant",name2:this.message.name};
+	   this.nMA=true;
+	   this.message.nbAnswers=this.message.nbAnswers+1;
         }
       }
     },
@@ -72,8 +75,19 @@ export default {
     	return {
 	    affRep :false,
 	    nM: false,
-	    textField_newmessage: ""
+	    textField_newmessage: "",
+	    nMA: false,
+	    answerNotif:{name:"",date:"",name2:""}
 	}
+    },
+    watch: {
+      answerNotif() {
+         this.$emit('notif-updated', this.answerNotif);
+      },
+      nMA() {
+         this.$emit('answer-posted', this.nMA);
+         this.nMA=false;
+      }
     },
     components: {
 	'answer-bla': Answer,
