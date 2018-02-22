@@ -35,7 +35,7 @@
     </div>
     <div class="field">
       <p class="control">
-        <button class="button" v-on:click="posterMessage()">Poster un commentaire</button>
+        <button class="button" v-on:click="postMessage()">Poster un commentaire</button>
       </p>
     </div>
   </div>
@@ -46,17 +46,27 @@
 <script>
 
 export default{
-  props: ['textfield_name', 'textfield_newmessage'],
+
+  props: ['name', 'newmessage'],
+
   created() {
-    this.val = this.textfield_newmessage,
+    this.val = this.newmessage,
     this.nM=false
   },
+
   data() {
     return {
-      val: '',
+      val: "",
       nM:false
     }
   },
+
+  methods: {
+    postMessage() {
+       this.nM=true
+    }
+  },
+
   watch: {
     val() {
       this.$emit('message-updated', this.val);
@@ -64,14 +74,10 @@ export default{
     nM() {
       this.$emit('message-posted', this.nM);
       this.nM=false;
+      this.val="";
     }
-  },
-   methods: {
-    posterMessage() {
-       this.nM=true
-    },
-    
   }
+  
 }
 
 </script>

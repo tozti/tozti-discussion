@@ -4,18 +4,18 @@
   <div class="media-content">
     <div class="content">
       <p>
-        <small> {{Notif_name1}} a répondu à un <a>message de {{Notif_name2}}</a>, {{Notif_date}} </small>
+        <small> {{name1}} a répondu à un <a>message de {{name2}}</a>, {{date}} </small>
       </p>
     </div>
-   </div>
-  </article>
+  </div>
+</article>
 
 </template>
 
 
 <script>
 export default {
-    props: ['Notif_name1','Notif_name2','Notif_date','Notif_idMessage']
+    props: ['name1','name2','date','idMessage']
 }
 </script>
 

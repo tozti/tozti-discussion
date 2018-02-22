@@ -30,10 +30,10 @@
 </nav>
 
 <div v-for="message in messages">
-  <message-bla v-bind:message="message" @notif-updated="updateNotif" @answer-posted="postNotif" />
+  <message v-bind:message="message" @notif-updated="updateNotif" @answer-posted="postNotif" />
 </div>
 
-<text-bla textfield_name="bobby" @message-updated="updateMessage" @message-posted="postMessage" />
+<text-field name="bobby" @message-updated="updateMessage" @message-posted="postMessage" />
 
 </div>
 
@@ -42,7 +42,6 @@
 <script>
 import TextField from './TextField.vue'
 import Message from './Message.vue'
-import Notif from './notif_message.vue'
 
 export default {
     data () {
@@ -60,8 +59,7 @@ export default {
 		{typ:0, name:"Manu", text:"none", date:"samedi 03/02/2018 à 19:14", answers:[], nbAnswers:0, name2:"Fenril"},
 		{typ:0, name:"Lucas", text:"none", date:"samedi 03/02/2018 à 19:16", answers:[], nbAnswers:0, name2:"Fenril"}
 	    ],
-	    affRep: false,
-	    textField_newmessage: "",
+	    newmessage: "",
 	    nM: false,
 	    nMA: false,
 	    answerNotif: {name:"", date:"", name2:""}
@@ -69,32 +67,22 @@ export default {
     },
 
     components: {
-        'text-bla': TextField,
-    	'message-bla': Message,
-	'notif-bla': Notif
+        TextField,
+    	Message
     },
 
   methods: {
-    afficherReponse() {
-       if (this.affRep===true){
-          this.affRep = false
-       }
-       else {
-          this.affRep = true
-       }
-    },
-    updateMessage(textField_newmessage) {
-      this.textField_newmessage = textField_newmessage;
+    updateMessage(newmessage) {
+      this.newmessage = newmessage;
     },
     postMessage(nM) {
        this.nM=nM;
        if (this.nM===true)
        {
-           this.messages.push({typ:1, name:"Bobby", text:this.textField_newmessage, date:"A l'instant", answers:[], nbAnswers:0, name2:"none"});
+           this.messages.push({typ:1, name:"Bobby", text:this.newmessage, date:"A l'instant", answers:[], nbAnswers:0, name2:"none"});
        }
     },
-    updateNotif(answerNotif)
-    {
+    updateNotif(answerNotif) {
 	this.answerNotif = answerNotif ;
     },
     postNotif(nMA) {
@@ -105,6 +93,7 @@ export default {
        }
     },
   }
+  
 };
 
 </script>

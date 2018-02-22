@@ -15,26 +15,26 @@
            <br>
              <p style="white-space: pre-line;">{{ message.text }}</p>
            <br>
-           <small><a>Marquer comme important</a> · <button class="button is-text" v-on:click="afficherReponse()"> <a> répondre </a> </button> · <a>Créer un fil à partir de commentaire</a> </small>
+           <small><a>Marquer comme important</a> · <button class="button is-text" v-on:click="toggleAnswer()"> <a> répondre </a> </button> · <a>Créer un fil à partir de commentaire</a> </small>
          </p> <br />
        </div>
       </div>
    </article>
 
    <template v-if="message.nbAnswers>0">
-      <button class="button is-text" v-on:click="afficherReponse()"> {{message.nbAnswers}} réponses</button>
+      <button class="button is-text" v-on:click="toggleAnswer()"> {{message.nbAnswers}} réponses</button>
    </template>
 
-   <template v-if="affRep">
+   <template v-if="showAnswer">
       <div v-for="answer in message.answers">
-         <answer-bla v-bind:Answer="answer" />
+         <answer v-bind:answer="answer" />
       </div>
-      <anstext-bla anstextfield_name="bobby" @message-updated="updateMessage" @message-posted="postMessage" />
+      <answer-textfield name="Bobby" @message-updated="updateMessage" @message-posted="postMessage" />
    </template>
 </template>
 
 <template v-if="message.typ<1">
-   <notif-bla v-bind:Notif_name1="message.name" v-bind:Notif_name2="message.name2" v-bind:Notif_date="message.date" v-bind:Notif_idMessage="none" />
+   <notif v-bind:name1="message.name" v-bind:name2="message.name2" v-bind:date="message.date" v-bind:idMessage="none" />
 </template>
 
 </div>
@@ -43,44 +43,49 @@
 <script>
 
 import Answer from './Answer.vue'
-import Answer_textfield from './Answer_textfield.vue'
+import AnswerTextfield from './Answer_textfield.vue'
 import Notif from './notif_message.vue'
 
 export default {
-    props: ['message'],
-    methods: {
-      afficherReponse() {
-        if (this.affRep===true){
-           this.affRep = false
-        }
-        else{
-           this.affRep = true
-        }
+
+   props: ['message'],
+    
+   data() {
+      return {
+	 showAnswer :false,
+	 nM: false,
+	 newAnswer: "",
+	 nMA: false,
+	 answerNotif:{name:"",date:"",name2:""}
+      }
+   },
+
+   components: {
+      Answer,
+      AnswerTextfield,
+      Notif
+   },
+
+   methods: {
+      toggleAnswer() {
+        this.showAnswer= !this.showAnswer
       },
-      updateMessage(textField_newmessage) {
-        this.textField_newmessage = textField_newmessage;
+      updateMessage(newAnswer) {
+        this.newAnswer = newAnswer;
       },
       postMessage(nM) {
         this.nM=nM;
         if (this.nM===true)
         {
-           this.message.answers.push({name:"Bobby", text:this.textField_newmessage, date:"A l'instant"});
+           this.message.answers.push({name:"Bobby", text:this.newAnswer, date:"A l'instant"});
 	   this.answerNotif={name:"Bobby",date:"A l'instant",name2:this.message.name};
 	   this.nMA=true;
 	   this.message.nbAnswers=this.message.nbAnswers+1;
         }
       }
-    },
-    data() {
-    	return {
-	    affRep :false,
-	    nM: false,
-	    textField_newmessage: "",
-	    nMA: false,
-	    answerNotif:{name:"",date:"",name2:""}
-	}
-    },
-    watch: {
+   },
+   
+   watch: {
       answerNotif() {
          this.$emit('notif-updated', this.answerNotif);
       },
@@ -88,11 +93,7 @@ export default {
          this.$emit('answer-posted', this.nMA);
          this.nMA=false;
       }
-    },
-    components: {
-	'answer-bla': Answer,
-	'anstext-bla': Answer_textfield,
-	'notif-bla': Notif
-    },
+   }
+   
 }
 </script>

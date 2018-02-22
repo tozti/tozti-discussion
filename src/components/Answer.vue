@@ -10,9 +10,9 @@
   <div class="media-content">
     <div class="content">
       <p>
-        <strong> {{ Answer.name }} </strong>, {{ Answer.date }}
+        <strong> {{ answer.name }} </strong>, {{ answer.date }}
         <br>
-          <p style="white-space: pre-line;">{{ Answer.text }}</p>
+          <p style="white-space: pre-line;">{{ answer.text }}</p>
         <br>
         <small><a>Marquer comme important</a> · <a>Répondre</a> · <a>Créer un fil à partir de commentaire</a> </small>
       </p> <br />
@@ -25,6 +25,6 @@
 
 <script>
 export default {
-    props: ['Answer']
+    props: ['answer']
 }
 </script>
