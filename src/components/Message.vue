@@ -14,16 +14,16 @@
            <strong> {{ message.name }} </strong>, {{ message.date }}
            <br>
              <p style="white-space: pre-line;">{{ message.text }}</p>
-           <br>
-           <small><a>Marquer comme important</a> · <button class="button is-text" v-on:click="toggleAnswer()"> <a> répondre </a> </button> · <a>Créer un fil à partir de commentaire</a> </small>
-         </p> <br />
+           <small><a>Marquer comme important</a> · <button style="font-size : 12px" class="button is-text" v-on:click="toggleAnswer()"> <a> répondre </a> </button> · <a>Créer un fil à partir de commentaire</a> </small>
+         </p>
+       <template v-if="message.nbAnswers>0">
+         <button class="button is-text" v-on:click="toggleAnswer()"> {{message.nbAnswers}} réponses</button>
+       <br />
+       <br />
+       </template>
        </div>
       </div>
    </article>
-
-   <template v-if="message.nbAnswers>0">
-      <button class="button is-text" v-on:click="toggleAnswer()"> {{message.nbAnswers}} réponses</button>
-   </template>
 
    <template v-if="showAnswer">
       <div v-for="answer in message.answers">
@@ -31,10 +31,12 @@
       </div>
       <answer-textfield name="Bobby" @message-updated="updateMessage" @message-posted="postMessage" />
    </template>
+   <br />
 </template>
 
 <template v-if="message.typ<1">
    <notif v-bind:name1="message.name" v-bind:name2="message.name2" v-bind:date="message.date" v-bind:idMessage="none" />
+   <br />
 </template>
 
 </div>
