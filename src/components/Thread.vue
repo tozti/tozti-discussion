@@ -1,5 +1,5 @@
 <template>
-    <section class="thread">
+    <section class="thread" v-if="!loading">
             <section class="thread-container">
                 <section class="level main-title">
                     <h2 class="level-left">

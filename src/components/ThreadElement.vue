@@ -1,6 +1,8 @@
 <template>
+    <div v-if="loading"></div>
+    
     <message
-        v-if="!parentMessage"
+        v-else-if="!parentMessage"
         :message="message"
         :author="author">
     </message>
