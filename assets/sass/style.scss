@@ -1,1 +1,14 @@
-/* Your SASS code here. */
+$thread-width: 900px;
+$message-padding: 1.7rem;
+
+// TODO(liautaud): We should find a way to import
+// those variables from the core style files.
+$primary: #ef233c;
+$separator-color: #f5f5f5;
+$grey: hsl(0, 0%, 48%);
+$danger: hsl(348, 100%, 61%);
+
+@import 'thread';
+@import 'message';
+@import 'aside';
+@import 'editor';

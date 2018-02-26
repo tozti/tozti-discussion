@@ -1,0 +1,76 @@
+.thread .media {
+	padding: $message-padding;
+	padding-bottom: $message-padding - .7rem;
+	text-align: justify;
+
+	.image {
+		border-radius: 50%;
+		overflow: hidden;
+		margin-right: 8px;
+	}
+}
+
+.thread .media.important {
+	background: rgba($danger, .03);
+}
+
+.thread .important-tag {
+	color: $danger;
+	font-size: 13px;
+	margin-left: 10px;
+
+	i {
+		vertical-align: -3px;
+		font-size: 16px !important;
+	}
+}
+
+.thread .media.event {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	font-size: .85rem;
+	padding-top: $message-padding * .6;
+	padding-bottom: $message-padding * .6;
+	opacity: .9;
+}
+
+.thread .media.event i {
+	font-size: 1.2rem !important;
+	width: 7.2rem;
+	margin-left: -$message-padding;
+	text-align: center;
+}
+
+.thread .media + .media {
+	margin-top: 0;
+	border-bottom-color: $separator-color;
+}
+
+.thread .media .content + .media {
+	margin-top: $message-padding - .9rem;
+}
+
+.thread .status {
+	padding: 5px 0 0;
+	font-size: 13px;
+
+	i {
+		margin-right: 3px;
+		vertical-align: -2px;
+	}
+}
+
+.thread .actions {
+	visibility: hidden;
+	padding: 7px 0 0;
+	text-align: right;
+
+	a {
+		color: $grey;
+	}
+}
+
+.thread .content:hover .actions {
+	visibility: visible;
+}

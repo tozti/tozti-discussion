@@ -41,7 +41,7 @@ MESSAGE_SCHEMA = {
             'arity': 'to-one',
             'targets': 'discussion/message'
         },
-        'children': {
+        'replies': {
             'type': 'relationship',
             'arity': 'auto',
             'pred-type': 'discussion/message',
@@ -51,14 +51,11 @@ MESSAGE_SCHEMA = {
 }
 
 
-# TODO(liautaud): We should uncomment the type declarations
-# once the new version of the storage API (which is available
-# under the `storage-refactor` branch) is merged into `master`.
 MANIFEST = {
     'name': 'discussion',
     'includes': ['build.js', 'css/style.css'],
-    # 'types': {
-    #     'thread': THREAD_SCHEMA,
-    #     'message': MESSAGE_SCHEMA
-    # }
+    'types': {
+        'thread': THREAD_SCHEMA,
+        'message': MESSAGE_SCHEMA
+    }
 }

@@ -1,0 +1,35 @@
+.thread .editor {
+	position: relative;
+	bottom: -35px;
+	width: $thread-width;
+	padding: $message-padding;
+	padding-top: $message-padding * .9;
+
+	border-radius: 6px 6px 0 0;
+	background: #fff;
+	box-shadow: 0 1px 3px rgba(#000, .1);
+
+	.image {
+		border-radius: 50%;
+		overflow: hidden;
+		margin-right: 8px;
+	}
+}
+
+.thread .editor.floating {
+	position: fixed;
+	bottom: 0;
+
+	box-shadow: 0 0 0 3px rgba(#000, .1);
+}
+
+.thread .editor .textarea {
+	padding: 0;
+	border: 0;
+	box-shadow: none;
+	resize: none;
+}
+
+.thread .editor .toolbox .button {
+	margin-right: 10px;
+}
