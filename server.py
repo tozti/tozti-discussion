@@ -47,7 +47,9 @@ MESSAGE_SCHEMA = {
             'pred-type': 'discussion/message',
             'pred-relationship': 'parent'
         }
-    }
+    },
+
+    'optional': ['parent']
 }
 
 
