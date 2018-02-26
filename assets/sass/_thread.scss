@@ -1,3 +1,9 @@
+.thread {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
 .thread-container {
 	max-width: $thread-width;
 }
