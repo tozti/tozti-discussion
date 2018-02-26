@@ -39,8 +39,10 @@
         mixins: [ resourceMixin ],
         components: { ThreadElement, Editor, Scrubber },
 
-        data: () => {
-            isEditorFloating: false
+        data: function() {
+            return {
+                isEditorFloating: false
+            }
         },
 
         computed: {

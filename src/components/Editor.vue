@@ -10,7 +10,7 @@
         <div class="media-content">
             <div class="content">
                 <p class="author">
-                    <strong>{{ tozti.me.body.name }}</strong>
+                    <strong>{{ user.body.name }}</strong>
                 </p>
                 
                 <textarea class="textarea" placeholder="Saisissez votre message"></textarea>
@@ -36,6 +36,9 @@
 
 <script>
     export default {
-        props: ['isFloating']
+        props: ['isFloating'],
+        computed: {
+            user: () => tozti.me
+        }
     }
 </script>

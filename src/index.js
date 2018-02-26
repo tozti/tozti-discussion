@@ -10,8 +10,9 @@ import Timeago from 'vue-timeago'
 // Sadly, this system is not yet implemented. So we wait.
 tozti.addRoutes([
     {
-        path: '/discussion',
-        component: Thread
+        path: '/discussion/:id',
+        component: Thread,
+        props: true
     }
 ])
 

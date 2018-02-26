@@ -10,9 +10,9 @@
         <div class="media-content">
             <div class="content">
                 <p class="author">
-                    <strong>{{ author.id }}</strong>
+                    <strong>{{ author.body.name }}</strong>
                     <small>
-                        <timeago :since="message.created_at"></timeago>
+                        <timeago :since="message.meta.created"></timeago>
                     </small>
                 </p>
                 

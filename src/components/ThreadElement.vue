@@ -31,7 +31,7 @@
             .then(author => {
                 this.author = author
 
-                if (!this.message.body.parent) {
+                if (!this.message.body.parent.data) {
                     this.loading = false
                 } else {
                     tozti.store.rels.fetch(this.message.body.parent)
