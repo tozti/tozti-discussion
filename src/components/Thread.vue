@@ -7,11 +7,11 @@
                     </h2>
                 </section>
 
-                <section class="thread boxed">
+                <section class="boxed">
                     <thread-element v-for="message in messages" :key="message.id" :id="message.id"></thread-element>
                 </section>
 
-                <editor :is-floating.sync="isEditorFloating"></editor>
+                <editor :thread="resource" :is-floating.sync="isEditorFloating"></editor>
             </section>
 
             <aside class="thread-aside">

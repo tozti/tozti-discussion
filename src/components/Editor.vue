@@ -13,7 +13,7 @@
                     <strong>{{ user.body.name }}</strong>
                 </p>
                 
-                <textarea class="textarea" placeholder="Saisissez votre message"></textarea>
+                <textarea class="textarea" placeholder="Saisissez votre message" v-model="content"></textarea>
             </div>
 
             <div class="level">
@@ -27,7 +27,13 @@
                 </div>
 
                 <div class="level-right">
-                    <a href="#" class="button is-primary"><i class="material-icons">send</i>&nbsp; Envoyer</a>
+                    <button
+                        type="submit"
+                        class="button is-primary"
+                        :disabled="attempting"
+                        @click="attemptMessage">
+                        <i class="material-icons">send</i>&nbsp; Envoyer
+                    </button>
                 </div>
             </div>
         </div>
@@ -36,9 +42,44 @@
 
 <script>
     export default {
-        props: ['isFloating'],
+        props: ['thread', 'isFloating'],
+
+        data() {
+            return {
+                content: '',
+                attempting: false
+            }
+        },
+
         computed: {
-            user: () => tozti.me
+            user() {
+                return tozti.me
+            }
+        },
+
+        methods: {
+            attemptMessage() {
+                this.attempting = true
+
+                tozti.api
+                    .post('/api/discussion/reply', {
+                        thread_id: this.thread.id,
+                        parent_id: null,
+                        content: this.content,
+                    })
+                    .then(res => {
+                        this.attempting = false
+                    })
+                    .catch(res => {
+                        this.$toast.open({
+                            message: 'Une erreur est survenue lors de l\'écriture du message',
+                            type: 'is-danger',
+                            position: 'is-top'
+                        })
+
+                        this.attempting = false
+                    })
+            }
         }
     }
 </script>
