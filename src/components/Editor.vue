@@ -69,6 +69,7 @@
                     })
                     .then(res => {
                         this.attempting = false
+                        this.content = ''
                     })
                     .catch(res => {
                         this.$toast.open({
