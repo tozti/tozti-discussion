@@ -9,12 +9,19 @@
         
         <div class="media-content">
             <div class="content">
-                <p class="author">
-                    <strong>{{ user.body.name }}</strong>
-                    <span class="tag is-warning answer" v-if="state.parentMessage">
-                        En réponse à {{ state.parentAuthor.body.name }} <a class="delete is-small" @click.prevent="resetParent"></a>
-                    </span>
-                </p>
+                <div class="level">
+                    <div class="level-left">
+                        <p class="author">
+                            <strong>{{ user.body.name }}</strong>
+                            <span class="tag is-warning answer" v-if="state.parentMessage">
+                                En réponse à {{ state.parentAuthor.body.name }} <a class="delete is-small" @click.prevent="resetParent"></a>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="level-right">
+                        <a v-if="state.floating" class="delete" @click="state.floating = false"></a>
+                    </div>
+                </div>
                 
                 <textarea class="textarea" placeholder="Saisissez votre message" v-model="content"></textarea>
             </div>
