@@ -7,6 +7,7 @@ __email__ = 'tozti@ens-lyon.fr'
 
 
 from tozti.utils import RouterDef, json_response, BadDataError
+from tozti.auth.utils import UnauthorizedRequest
 from tozti.auth.decorators import restrict_known_user
 from aiohttp import web
 from uuid import UUID
@@ -15,13 +16,15 @@ import logbook
 
 """The RPC routes."""
 router = RouterDef()
-reply_route = router.add_route('/reply')
 logger = logbook.Logger('tozti.discussion')
 
+post_route = router.add_route('/postMessage')
+delete_route = router.add_route('/deleteMessage')
 
-@reply_route.post
+
+@post_route.post
 @restrict_known_user
-async def reply_post(req):
+async def message_post(req):
     store = req.app['tozti-store']
     json = await req.json()
 
@@ -46,12 +49,41 @@ async def reply_post(req):
             'data': {'id': str(UUID(json['parent_id']))}
         }
 
-    # Create the message in the store.
+    # Create the message.
     message = await store.create(message)
 
     # Link the message to its parent thread.
     relationship = {'data': [{'id': str(message['id'])}]}
     await store.item_append(thread_id, 'messages', relationship)
+
+    return json_response({})
+
+
+@delete_route.post
+@restrict_known_user
+async def message_delete(req):
+    store = req.app['tozti-store']
+    json = await req.json()
+
+    try:
+        user_id = req['user']
+        message_id = UUID(json['message_id'])
+
+        message = await store.read(message_id)
+        author_id = message['body']['author']['data']['id']
+        thread_id = message['body']['thread']['data'][0]['id']
+    except (KeyError, ValueError):
+        return BadDataError()
+
+    if user_id != author_id:
+        return UnauthorizedRequest()
+
+    # Unlink the message from its parent thread.
+    relationship = {'data': [{'id': str(message_id)}]}
+    await store.item_remove(thread_id, 'messages', relationship)
+
+    # Delete the message.
+    await store.delete(message_id)
 
     return json_response({})
 
@@ -85,6 +117,12 @@ MESSAGE_SCHEMA = {
             'type': 'relationship',
             'arity': 'to-one',
             'targets': 'core/user'
+        },
+        'thread': {
+            'type': 'relationship',
+            'arity': 'auto',
+            'pred-type': 'discussion/thread',
+            'pred-relationship': 'messages'
         },
         'parent': {
             'type': 'relationship',

@@ -31,7 +31,7 @@
                         type="submit"
                         class="button is-primary"
                         :disabled="attempting"
-                        @click="attemptMessage">
+                        @click.prevent="attemptMessage">
                         <i class="material-icons">send</i>&nbsp; Envoyer
                     </button>
                 </div>
@@ -62,7 +62,7 @@
                 this.attempting = true
 
                 tozti.api
-                    .post('/api/discussion/reply', {
+                    .post('/api/discussion/postMessage', {
                         thread_id: this.thread.id,
                         parent_id: null,
                         content: this.content,
