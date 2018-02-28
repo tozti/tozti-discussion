@@ -28,12 +28,24 @@
 
             <div class="level">
                 <div class="level-left toolbox">
-                    <a href="#" class="button is-light"><i class="material-icons">format_bold</i></a>
-                    <a href="#" class="button is-light"><i class="material-icons">format_italic</i></a>
-                    <a href="#" class="button is-light"><i class="material-icons">format_underlined</i></a>
-                    <a href="#" class="button is-light"><i class="material-icons">functions</i></a>
-                    <a href="#" class="button is-light"><i class="material-icons">attach_file</i></a>
-                    <a href="#" class="button is-light"><i class="material-icons">person</i></a>
+                    <a href="#" class="button is-light" title="Gras">
+                        <i class="material-icons">format_bold</i>
+                    </a>
+                    <a href="#" class="button is-light" title="Italique">
+                        <i class="material-icons">format_italic</i>
+                    </a>
+                    <a href="#" class="button is-light" title="Souligné">
+                        <i class="material-icons">format_underlined</i>
+                    </a>
+                    <a href="#" class="button is-light" title="Formule mathématique">
+                        <i class="material-icons">functions</i>
+                    </a>
+                    <a href="#" class="button is-light" title="Joindre un document">
+                        <i class="material-icons">attach_file</i>
+                    </a>
+                    <a href="#" class="button is-light" title="Mentionner un·e utiliseur·ice">
+                        <i class="material-icons">person</i>
+                    </a>
                 </div>
 
                 <div class="level-right">
@@ -74,12 +86,13 @@
                 tozti.api
                     .post('/api/discussion/postMessage', {
                         thread_id: this.thread.id,
-                        parent_id: this.state.parentMessage.id || null,
+                        parent_id: (this.state.parentMessage) ? this.state.parentMessage.id : null,
                         content: this.content,
                     })
                     .then(res => {
                         this.attempting = false
                         this.content = ''
+                        this.resetParent()
                     })
                     .catch(res => {
                         this.$toast.open({
@@ -89,7 +102,6 @@
                         })
 
                         this.attempting = false
-                        this.resetParent()
                     })
             },
 
