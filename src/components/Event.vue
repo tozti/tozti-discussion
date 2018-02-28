@@ -4,7 +4,7 @@
         <p>
         	<strong>{{ author.body.name }}</strong>
         	a répondu à <a href="#">un message</a> de
-        	<strong>{{ parentAuthor.body.name }}</strong> il y a 
+        	<strong>{{ parentAuthor.body.name }}</strong>
         	<small><timeago :since="message.meta.created"></timeago></small>.
         </p>
     </article>

@@ -14,18 +14,25 @@
                         :editor-state="editorState"></thread-element>
                 </section>
 
-                <editor :thread="resource" :state="editorState"></editor>
+                <div ref="editor">
+                    <editor :thread="resource" :state="editorState"></editor>
+                </div>
+
+                <div v-if="editorState.floating" :style="{height: editorHeight}"></div>
             </section>
 
             <aside class="thread-aside">
                 <div class="inner">
-                    <a class="button is-primary"><i class="material-icons">reply</i>&nbsp; Répondre</a>
+                    <a class="button is-primary"
+                        @click.prevent="editorState.floating = true">
+                        <i class="material-icons">reply</i>&nbsp; Répondre
+                    </a>
                     <a class="button is-light"><i class="material-icons">notifications_none</i>&nbsp; Suivre</a>
                     <a class="button is-light"><i class="material-icons">star_outline</i>&nbsp; Importants</a>
                     <a class="button is-light"><i class="material-icons">attachment</i>&nbsp; Pièces jointes</a>
                     <a class="button is-light"><i class="material-icons">subdirectory_arrow_right</i>&nbsp; Dernier non-lu</a>
 
-                    <scrubber :current="2" :total="10" :date="'Janvier 2018'"></scrubber>
+                    <scrubber :current="2" :total="messages.length" :date="'Janvier 2018'"></scrubber>
                 </div>
             </aside>
     </section>
@@ -56,6 +63,10 @@
         computed: {
             messages() {
                 return this.resource.body.messages.data
+            },
+
+            editorHeight() {
+                return this.$refs.editor.clientHeight + 'px'
             }
         },
     }

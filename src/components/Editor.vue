@@ -87,6 +87,7 @@
             },
 
             resetParent() {
+                this.state.floating = false
                 this.state.parentMessage = null
                 this.state.parentAuthor = null
             }
