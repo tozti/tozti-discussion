@@ -7,3 +7,8 @@
 .thread-container {
 	max-width: $thread-width;
 }
+
+.messages-container {
+	// This is needed by for the scrubber.
+	position: relative;
+}

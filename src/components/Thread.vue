@@ -7,7 +7,7 @@
                     </h2>
                 </section>
 
-                <section class="boxed">
+                <section class="boxed messages-container" ref="messagesContainer">
                     <thread-element v-for="message in messages" 
                         :key="message.id"
                         :id="message.id"
@@ -32,7 +32,9 @@
                     <a class="button is-light"><i class="material-icons">attachment</i>&nbsp; Pièces jointes</a>
                     <a class="button is-light"><i class="material-icons">subdirectory_arrow_right</i>&nbsp; Dernier non-lu</a>
 
-                    <scrubber :current="2" :total="messages.length" :date="'Janvier 2018'"></scrubber>
+                    <scrubber
+                        :messages-container="$refs.messagesContainer">
+                    </scrubber>
                 </div>
             </aside>
     </section>
