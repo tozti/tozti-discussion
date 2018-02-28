@@ -1,5 +1,5 @@
 <template>
-    <section :class="['editor', 'media', { floating: isFloating }]">
+    <section :class="['editor', 'media', { floating: state.floating }]">
         <figure class="media-left">
             <p class="image is-64x64">
                 <!-- TODO(liautaud): Add the actual avatar -->
@@ -11,6 +11,9 @@
             <div class="content">
                 <p class="author">
                     <strong>{{ user.body.name }}</strong>
+                    <span class="tag is-warning answer" v-if="state.parentMessage">
+                        En réponse à {{ state.parentAuthor.body.name }} <a class="delete is-small" @click.prevent="resetParent"></a>
+                    </span>
                 </p>
                 
                 <textarea class="textarea" placeholder="Saisissez votre message" v-model="content"></textarea>
@@ -42,7 +45,7 @@
 
 <script>
     export default {
-        props: ['thread', 'isFloating'],
+        props: ['state', 'thread'],
 
         data() {
             return {
@@ -64,7 +67,7 @@
                 tozti.api
                     .post('/api/discussion/postMessage', {
                         thread_id: this.thread.id,
-                        parent_id: null,
+                        parent_id: this.state.parentMessage.id || null,
                         content: this.content,
                     })
                     .then(res => {
@@ -79,7 +82,13 @@
                         })
 
                         this.attempting = false
+                        this.resetParent()
                     })
+            },
+
+            resetParent() {
+                this.state.parentMessage = null
+                this.state.parentAuthor = null
             }
         }
     }

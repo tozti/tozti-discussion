@@ -33,3 +33,14 @@
 .thread .editor .toolbox .button {
 	margin-right: 10px;
 }
+
+.thread .editor .tag.answer {
+	position: relative;
+	top: -1px;
+
+	margin-left: 15px;
+
+	.delete {
+		margin-left: 10px !important;
+	}
+}

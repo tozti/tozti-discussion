@@ -8,10 +8,13 @@
                 </section>
 
                 <section class="boxed">
-                    <thread-element v-for="message in messages" :key="message.id" :id="message.id"></thread-element>
+                    <thread-element v-for="message in messages" 
+                        :key="message.id"
+                        :id="message.id"
+                        :editor-state="editorState"></thread-element>
                 </section>
 
-                <editor :thread="resource" :is-floating.sync="isEditorFloating"></editor>
+                <editor :thread="resource" :state="editorState"></editor>
             </section>
 
             <aside class="thread-aside">
@@ -41,7 +44,12 @@
 
         data: function() {
             return {
-                isEditorFloating: false
+                // TODO(liautaud): We should probably use Vuex.
+                editorState: {
+                    floating: false,
+                    parentMessage: null,
+                    parentAuthor: null
+                }
             }
         },
 
