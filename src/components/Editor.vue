@@ -3,7 +3,7 @@
         <figure class="media-left">
             <p class="image is-64x64">
                 <!-- TODO(liautaud): Add the actual avatar -->
-                <img src="https://placeimg.com/128/128/people">
+                <img :src="'https://identicon-api.herokuapp.com/' + user.body.name + '/64?format=png'">
             </p>
         </figure>
         
