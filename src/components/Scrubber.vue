@@ -1,14 +1,19 @@
 <template>
-    <nav class="scrubber" v-if="messagesContainer">
+    <nav class="scrubber">
         <p><i class="material-icons">arrow_upward</i> Premier message</p>
-        
-        <div class="area">
-            <div class="current" :style="{top: this.cursorTop + 'px'}">
-                <strong>{{ current }} sur {{ total }} messages</strong>
-                <time>
-                    <timeago :since="date"></timeago>
-                </time>
-            </div>
+
+        <div class="area" ref="area">
+            <transition name="fade">
+                <div class="current" ref="current"
+                    v-if="messagesContainer"
+                    :style="{top: this.cursorTop + 'px'}"
+                    @mousedown="onMousedown">
+                    <strong>{{ current }} sur {{ total }} messages</strong>
+                    <time>
+                        <timeago :since="date"></timeago>
+                    </time>
+                </div>
+            </transition>
         </div>
         
         <p><i class="material-icons">arrow_downward</i> Maintenant</p>
@@ -16,11 +21,16 @@
 </template>
 
 <script>
+    const AREA_HEIGHT = 190
+    const CURRENT_HEIGHT = 42
+
     export default {
         props: ['messagesContainer'],
 
         data() {
             return {
+                dragEnabled: false,
+                dragOffset: 0,
                 viewportTop: window.pageYOffset,
                 viewportHeight: window.innerHeight
             }
@@ -29,6 +39,31 @@
         methods: {
             onScroll() {
                 this.viewportTop = window.pageYOffset
+            },
+
+            onMousedown(e) {
+                this.dragEnabled = true
+
+                let currentBox = this.$refs.current.getBoundingClientRect()
+                this.dragOffset = e.clientY - currentBox.top
+            },
+
+            onMouseup() {
+                this.dragEnabled = false
+                this.dragOffset = 0
+            },
+
+            onMousemove(e) {
+                if (!this.dragEnabled) return
+
+                let areaBox = this.$refs.area.getBoundingClientRect()
+                let areaTop = e.clientY - areaBox.top - this.dragOffset
+                let areaHeight = AREA_HEIGHT - CURRENT_HEIGHT
+
+                let {containerTop, realHeight} = this.containerPosition
+                let desiredTop = areaTop / areaHeight * realHeight
+
+                window.scrollTo(0, desiredTop + containerTop)
             }
         },
 
@@ -46,7 +81,13 @@
                 let realBottom = realTop + this.viewportHeight
                 let realHeight = containerHeight - this.viewportHeight
 
-                return {realTop, realBottom, realHeight}
+                return {
+                    containerTop,
+                    containerHeight,
+                    realTop,
+                    realBottom,
+                    realHeight
+                }
             },
 
             normalizedTop() {
@@ -56,7 +97,7 @@
             },
 
             cursorTop() {
-                return this.normalizedTop * (190 - 42)
+                return this.normalizedTop * (AREA_HEIGHT - CURRENT_HEIGHT)
             },
 
             current() {
@@ -85,10 +126,14 @@
         
         beforeMount () {
             window.addEventListener('scroll', this.onScroll)
+            window.addEventListener('mouseup', this.onMouseup)
+            window.addEventListener('mousemove', this.onMousemove)
         },
 
         beforeDestroy () {
             window.removeEventListener('scroll', this.onScroll)
+            window.removeEventListener('mouseup', this.onMouseup)
+            window.removeEventListener('mousemove', this.onMousemove)
         }
     }
 </script>

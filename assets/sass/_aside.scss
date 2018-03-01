@@ -5,7 +5,7 @@
 
 .thread-aside .inner {
 	position: fixed;
-	width: 190px;
+	width: 180px;
 	height: 200px;
 }
 
@@ -32,6 +32,9 @@
 	font-size: 14px;
 	margin-top: 40px;
 	color: $grey;
+
+	cursor: default;
+	user-select: none;
 }
 
 .scrubber .area {
@@ -39,7 +42,7 @@
 	margin-bottom: 10px;
 	margin-left: 6px;
 	border-left: 1px solid #ddd;
-	height: 180px;
+	height: 190px;
 }
 
 .scrubber .current {
