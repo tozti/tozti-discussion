@@ -1,7 +1,6 @@
 'use strict'
 
 import Thread from './components/Thread.vue'
-import Timeago from 'vue-timeago'
 
 // TODO(liautaud): We don't actually need to declare a route.
 // Instead, we should use the dispatching system provided by
@@ -15,16 +14,6 @@ tozti.addRoutes([
         props: true
     }
 ])
-
-// TODO(liautaud): Maybe we should refactor this into the core,
-// as it will probably be useful to many extensions.
-Vue.use(Timeago, {
-    name: 'timeago',
-    locale: 'fr-FR',
-    locales: {
-        'fr-FR': require('vue-timeago/locales/fr-FR.json')
-    }
-})
 
 // Custom resource types.
 import TaxonomyItem from './components/TaxonomyItem.vue'
