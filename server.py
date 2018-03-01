@@ -94,6 +94,9 @@ THREAD_SCHEMA = {
         'name': {
             'type': 'string'
         },
+        'handle': {
+            'type': 'string'
+        },
         'messages': {
             'type': 'relationship',
             'arity': 'to-many',

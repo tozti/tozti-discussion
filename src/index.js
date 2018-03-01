@@ -25,3 +25,13 @@ Vue.use(Timeago, {
         'fr-FR': require('vue-timeago/locales/fr-FR.json')
     }
 })
+
+// Custom resource types.
+import TaxonomyItem from './components/TaxonomyItem.vue'
+import NewThreadForm from './components/Forms/NewThreadForm.vue'
+tozti.addResourceType(
+    'discussion/thread',
+    'discussion', 'f', 
+    TaxonomyItem,
+    NewThreadForm
+)
