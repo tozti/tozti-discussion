@@ -1,11 +1,11 @@
 <template>
-    <nav class="scrubber">
-        <p><i class="material-icons">arrow_upward</i> Premier message</p>
+    <transition name="fade">
+        <!-- TODO(liautaud): Fix the scrubber for small number of messages. -->
+        <nav class="scrubber" v-if="messagesContainer && total >= 7">
+            <p><i class="material-icons">arrow_upward</i> Premier message</p>
 
-        <div class="area" ref="area">
-            <transition name="fade">
+            <div class="area" ref="area">
                 <div class="current" ref="current"
-                    v-if="messagesContainer"
                     :style="{top: this.cursorTop + 'px'}"
                     @mousedown="onMousedown">
                     <strong>{{ current }} sur {{ total }} messages</strong>
@@ -13,11 +13,11 @@
                         <timeago :since="date"></timeago>
                     </time>
                 </div>
-            </transition>
-        </div>
-        
-        <p><i class="material-icons">arrow_downward</i> Maintenant</p>
-    </nav>
+            </div>
+            
+            <p><i class="material-icons">arrow_downward</i> Maintenant</p>
+        </nav>
+    </transition>
 </template>
 
 <script>
